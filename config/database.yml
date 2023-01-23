@@ -1,10 +1,3 @@
-production:
-  <<: *default
-  database: furima_33616_production
-  username: furima_33616
-  password: <%= ENV['FURIMA_33616_DATABASE_PASSWORD'] %>
-
-
 default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
