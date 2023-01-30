@@ -47,13 +47,12 @@ Things you may want to cover:
 | Column             | Type       | Options                        |
 | ------------------ | -----------| -------------------------------|
 | name               | string     | null: false                    |
-| image              | string     | null: false                    |
 | description        | text       | null: false                    |
-| category           | integer    | null: false                    |
-| status             | integer    | null: false                    |
-| charge             | integer    | null: false                    |
-| area               | integer    | null: false                    |
-| duration           | integer    | null: false                    |
+| category_id        | integer    | null: false                    |
+| status_id          | integer    | null: false                    |
+| charge_id          | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| duration_id        | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
@@ -81,11 +80,12 @@ Things you may want to cover:
 | Column             | Type       | Options                        |
 | ------------------ | -----------| -------------------------------|
 | postal_code        | string     | null: false                    |
-| prefectures_id     | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | municipality       | string     | null: false                    |
 | address            | string     | null: false                    |
 | building           | string     |                                |
 | tel                | string     | null: false                    |
+| purchase           | references | null: false, foreign_key: true |
 
 
 ### Association
