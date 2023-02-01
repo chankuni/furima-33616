@@ -57,7 +57,7 @@ Things you may want to cover:
 | user               | references | null: false, foreign_key: true |
 
 ### Association
-- has_many   :purchases
+- has_one   :purchase
 - belongs_to :user
 - has_one_attached :image
 
