@@ -10,11 +10,12 @@ class User < ApplicationRecord
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX, message: "must be a mixture of single-byte alphanumeric characters"
   
-  LASTNAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+  LASTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]/.freeze
   validates :last_name, presence: true
   validates_format_of :last_name, with: LASTNAME_REGEX, message: "must be entered in full-width characters"
 
-  FIRSTNAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+  FIRSTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
+
   validates :first_name, presence: true
   validates_format_of :first_name, with: FIRSTNAME_REGEX, message: "must be entered in full-width characters"
 

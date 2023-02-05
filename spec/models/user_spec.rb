@@ -6,6 +6,11 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規機能' do
+
+    it 'nickname, email, password, password_confirmation, last_name, first_name, last_name_kana, first_name_kana, birthdayが存在すれば登録できる' do
+      expect(@user).to be_valid
+    end
+
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
       @user.valid?
@@ -53,6 +58,13 @@ RSpec.describe User, type: :model do
 
     it 'passwordが半角数字のみでは登録できない' do
       @user.password = 'abcdefg'
+      @user.password_confirmation = @user.password
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password must be a mixture of single-byte alphanumeric characters")
+    end
+
+    it 'passwordが全角英数字混合では登録できない' do
+      @user.password = 'ａｂｃｄ１２３'
       @user.password_confirmation = @user.password
       @user.valid?
       expect(@user.errors.full_messages).to include("Password must be a mixture of single-byte alphanumeric characters")
