@@ -12,7 +12,8 @@ class Item < ApplicationRecord
   validates :name, :description, :category_id, :status_id, :charge_id, :prefecture_id, :duration_id, :image, presence: true
   validates :category_id, :status_id, :charge_id, :prefecture_id, :duration_id, numericality: { other_than: 1 , message: "can't be blank"}
   
-  with_options presence: true, format: {with: /\A[0-9]+\z/ } do
-    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+  with_options presence: true do
+    validates :price, numericality: {only_integer: true, message: 'Half-width number'}
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
   end 
 end
