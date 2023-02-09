@@ -70,6 +70,13 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
+      it ' 価格の情報が全角数字であれば登録できない' do
+        @item.price = '１２３'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+
       it ' 価格の情報が300未満であれば登録できない' do
         @item.price = 123
         @item.valid?
