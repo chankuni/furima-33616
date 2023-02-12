@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index_or_sign_in, only: [:edit]
-  before_action :move_to_index, only: [:new]
+  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :move_to_index, only: [:edit]
+  before_action :set_item, only: [:show, :edit]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -20,40 +21,36 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    @item = Item.find(params[:id])
-    if @item.update(item_params)
+    item = Item.find(params[:id])
+    if item.update(item_params)
       redirect_to item_path(@item.id)
     else
       render :edit
     end
   end
 
-  private
 
+  private
   def item_params
     params.require(:item).permit(:name, :description, :category_id, :status_id, :charge_id, :prefecture_id, :duration_id, :price,
                                  :image).merge(user_id: current_user.id)
   end
 
-  def move_to_sign_in
-    return if user_signed_in?
-
-    redirect_to '/users/sign_in'
+  def set_item
+    @item = Item.find(params[:id])
   end
 
-  def move_to_index_or_sign_in
-    if user_signed_in?
-      redirect_to action: :index unless current_user.id == Item.find(params[:id]).user_id
-    else
-      redirect_to '/users/sign_in'
+
+  def move_to_index
+    @item = Item.find(params[:id])
+    unless current_user.id == @item.user_id
+      redirect_to '/'
     end
   end
 end
