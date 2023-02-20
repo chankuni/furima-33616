@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :status
   has_one_attached :image
   belongs_to :user
+  has_one :purchase
 
   validates :name, :description, :category_id, :status_id, :charge_id, :prefecture_id, :duration_id, :price, :image,
             presence: true

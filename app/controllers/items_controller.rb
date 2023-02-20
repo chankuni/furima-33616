@@ -2,10 +2,12 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :destroy]
+  before_action :move_to_index2, only: [:edit, :destroy]
 
 
   def index
     @items = Item.all.order('created_at DESC')
+    @purchases_itemid = Purchase.pluck('item_id')
   end
 
   def new
@@ -22,6 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @purchases_itemid = Purchase.pluck('item_id')
   end
 
   def edit
@@ -57,4 +60,12 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def move_to_index2
+    @purchases_itemid = Purchase.pluck('item_id')
+    if @purchases_itemid.include?(@item.id)
+      redirect_to root_path
+    end
+  end
+
 end
