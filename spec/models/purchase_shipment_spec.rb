@@ -71,10 +71,16 @@ RSpec.describe PurchaseShipment, type: :model do
         expect(@purchase_shipment.errors.full_messages).to include("Tel is not a number")
       end
 
-      it 'telが10桁以下であれば保存できないこと' do
+      it 'telが9桁以下であれば保存できないこと' do
         @purchase_shipment.tel = '111'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Tel is too short (minimum is 10 characters)")
+      end
+
+      it 'telが12桁以上であれば保存できないこと' do
+        @purchase_shipment.tel = '111111111111111111111111'
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
       end
 
       it 'tokenが空だと保存できないこと' do

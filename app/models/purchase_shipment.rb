@@ -9,15 +9,15 @@ class PurchaseShipment
     validates :tel
     validates :municipality
     validates :address
+    validates :token
   end
   validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
-  validates :token, presence: true
   validates :tel, numericality: { only_integer: true}
   validates :tel, length: { in: 10..11 }
 
   def save
     purchase = Purchase.create(item_id: item_id, user_id: user_id, token: token)
-    Shipment.create(postal_code: postal_code, prefecture_id: prefecture, municipality: municipality, address: address, building: building, tel: tel, purchase_id: purchase.id)
+    Shipment.create(postal_code: postal_code, prefecture_id: prefecture_id, municipality: municipality, address: address, building: building, tel: tel, purchase_id: purchase.id)
   end
 
 end
