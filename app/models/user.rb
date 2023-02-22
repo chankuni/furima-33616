@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items, dependent: :destroy
+  has_many :purchases
   validates :nickname, presence: true
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
@@ -15,7 +16,6 @@ class User < ApplicationRecord
   validates_format_of :last_name, with: LASTNAME_REGEX, message: 'must be entered in full-width characters'
 
   FIRSTNAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
-
   validates :first_name, presence: true
   validates_format_of :first_name, with: FIRSTNAME_REGEX, message: 'must be entered in full-width characters'
 

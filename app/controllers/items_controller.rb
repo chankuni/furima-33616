@@ -52,9 +52,23 @@ class ItemsController < ApplicationController
   end
 
 
+  # def move_to_index
+  #   unless current_user.id == @item.user_id
+  #     redirect_to root_path
+  #   end
+  # end
+
+  # def move_to_index2
+  #   @purchases_itemid = Purchase.pluck('item_id')
+  #   if @purchases_itemid.include?(@item.id)
+  #     redirect_to root_path
+  #   end
+  # end
+
   def move_to_index
-    unless current_user.id == @item.user_id
+    if current_user.id != @item.user_id || @item.purchase.present?
       redirect_to root_path
     end
   end
+
 end
